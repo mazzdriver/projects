@@ -6,14 +6,32 @@ player = 'x'
 ai = 'o'
 
 # защита от дурака, проверка годности ввода
-def get_user_move():
+
+def is_move_legal():
+    """Проверяет доступность хода
+    """
+
+def get_user_move(): 
+    """Возвращает значение хода
+    """
     while True:
+        print(
+        'Enter the number of cell to make the move:',
+        '1 2 3',
+        '4 5 6',
+        '7 8 9',
+        sep='\n'
+    )
         inputed = input()
-        if str(inputed).isdigit() and 1 <= int(inputed) <= 9:
+        if str(inputed).isdigit() and 1 <= int(inputed) <= 9 and playdeck[inputed] == 0:
             return int(inputed)
-        
-# определение конца игры
+        print('Wrong. Please try again.')
+        print()
+
+
 def is_end():
+    """Анализирует возможность ходить далее. Возвращает 
+    """
     if c1 == c2 == c3 or c1 == c4 == c7 or c1 == c5 == c9:
         return c1
     elif c4 == c5 == c6 or c2 == c5 == c8 or c3 == c5 == c7:
@@ -21,15 +39,15 @@ def is_end():
     elif c7 == c8 == c9 or c3 == c6 == c9:
         return c9
 
-# определение победителя
-def final():
-    if is_end() == player:
+
+def final(c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai):
+    if is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == player:
         return player
-    elif is_end() == ai:
+    elif is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == ai:
         return ai
 
-# ход компьютера
-def ai_move(playdeck, player, ai):
+
+def ai_move(c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai):
     # логика атаки
     if c1 == '_' and (c2 == c3 == ai or c4 == c7 == ai or c5 == c9 == ai):
         return 1
@@ -73,59 +91,12 @@ def ai_move(playdeck, player, ai):
         return s
 
 
-playdeck = [[0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0]]
+playdeck = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 
-while not final():
+while not end_of_game and 0 in playdeck:
     # showdown
-    print(playdeck)
-    print()
-    print(
-        'Input the number of field to make the move:',
-        '1 2 3',
-        '4 5 6',
-        '7 8 9',
-        sep='\n'
-    )
-    user_move = input()
-    if foolproof(user_move) and playdeck[int(m)-1] == '_':
-        playdeck[int(m)-1] = player
-        c1 = playdeck[0]
-        c2 = playdeck[1]
-        c3 = playdeck[2]
-        c4 = playdeck[3]
-        c5 = playdeck[4]
-        c6 = playdeck[5]
-        c7 = playdeck[6]
-        c8 = playdeck[7]
-        c9 = playdeck[8]
-    else:
-        print('Wrong selection. Try again')
-        continue
+    print(playdeck[0], playdeck[1], playdeck[2])
+    print(playdeck[3], playdeck[4], playdeck[5])
+    print(playdeck[6], playdeck[7], playdeck[8])
 
-    m = ai_move(c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai)
-    if foolproof(m) and playdeck[int(m) - 1] == '_':
-        playdeck[int(m) - 1] = ai
-        c1 = playdeck[0]
-        c2 = playdeck[1]
-        c3 = playdeck[2]
-        c4 = playdeck[3]
-        c5 = playdeck[4]
-        c6 = playdeck[5]
-        c7 = playdeck[6]
-        c8 = playdeck[7]
-        c9 = playdeck[8]
-
-if '_' in playdeck:
-    print(c1, c2, c3)
-    print(c4, c5, c6)
-    print(c7, c8, c9)
-    winner = final(c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai)
-    print('Who plays "', winner, '" won')
-else:
-    print(c1, c2, c3)
-    print(c4, c5, c6)
-    print(c7, c8, c9)
-    print('Draw')
