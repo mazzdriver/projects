@@ -1,15 +1,19 @@
+
 import random
 # совсем простой вариант игры
 
 player = 'x'
 ai = 'o'
 
-
-def foolproof(inputed):  # защита от дурака
-    return True if str(inputed).isdigit() and 1 <= int(inputed) <= 9 else False
-
-
-def is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9):
+# защита от дурака, проверка годности ввода
+def get_user_move():
+    while True:
+        inputed = input()
+        if str(inputed).isdigit() and 1 <= int(inputed) <= 9:
+            return int(inputed)
+        
+# определение конца игры
+def is_end():
     if c1 == c2 == c3 or c1 == c4 == c7 or c1 == c5 == c9:
         return c1
     elif c4 == c5 == c6 or c2 == c5 == c8 or c3 == c5 == c7:
@@ -17,15 +21,15 @@ def is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9):
     elif c7 == c8 == c9 or c3 == c6 == c9:
         return c9
 
-
-def final(c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai):
-    if is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == player:
+# определение победителя
+def final():
+    if is_end() == player:
         return player
-    elif is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == ai:
+    elif is_end() == ai:
         return ai
 
-
-def ai_move(c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai):
+# ход компьютера
+def ai_move(playdeck, player, ai):
     # логика атаки
     if c1 == '_' and (c2 == c3 == ai or c4 == c7 == ai or c5 == c9 == ai):
         return 1
@@ -69,32 +73,24 @@ def ai_move(c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai):
         return s
 
 
-playdeck = ['_', '_', '_', '_', '_', '_', '_', '_', '_']
-c1 = playdeck[0]
-c2 = playdeck[1]
-c3 = playdeck[2]
-c4 = playdeck[3]
-c5 = playdeck[4]
-c6 = playdeck[5]
-c7 = playdeck[6]
-c8 = playdeck[7]
-c9 = playdeck[8]
+playdeck = [[0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]]
 
-while not final(c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai) and '_' in playdeck:
+
+while not final():
     # showdown
-    print(c1, c2, c3)
-    print(c4, c5, c6)
-    print(c7, c8, c9)
-
+    print(playdeck)
+    print()
     print(
-        'Input the number to make the move:',
+        'Input the number of field to make the move:',
         '1 2 3',
         '4 5 6',
         '7 8 9',
         sep='\n'
     )
-    m = input()
-    if foolproof(m) and playdeck[int(m)-1] == '_':
+    user_move = input()
+    if foolproof(user_move) and playdeck[int(m)-1] == '_':
         playdeck[int(m)-1] = player
         c1 = playdeck[0]
         c2 = playdeck[1]
