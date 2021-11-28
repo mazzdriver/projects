@@ -5,11 +5,8 @@ import random
 player = 'x'
 ai = 'o'
 playdeck = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-hello = """Hello there! \n
-            Let's play a tic-tac-toe game! \n
-            The order is to make 3 symbols in a row or diagonal and interfere your opponent to do the same. \n
-            Move by move you'll fill a table 3*3 by symbols, usually 'x' and 'o'. You can write a symbol only in free cell. \n
-            So, let's start!"""
+possible_moves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+hello = "Hello there! \n Let's play a tic-tac-toe game! \n The order is to make 3 symbols in a row or diagonal and interfere your opponent to do the same. \n Move by move you'll fill a table 3*3 by symbols, usually 'x' and 'o'. You can write a symbol only in free cell. \n So, let's start!"
 
 def get_user_move(): 
     """Возвращает номер клетки с ходом игрока. Или продолжает запрашивать ход
@@ -24,18 +21,18 @@ def get_user_move():
         sep='\n'
     )
         player_cell = input()
-        if str(player_cell).isdigit() and 1 <= int(player_cell) <= 9 and playdeck[int(player_cell)] == 0:
+        if str(player_cell).isdigit() and int(player_cell) in possible_moves:
             return int(player_cell)
         print('Wrong. Please try again.')
         print()
 
 def ai_move():
-    """ Возвращает ход компьютера, исходя из ситуации
+    """ Возвращает номер клетки с ходом компьютера, исходя из ситуации
     """
     pass
-    # c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai):
-    # # логика атаки
-    # if c1 == '_' and (c2 == c3 == ai or c4 == c7 == ai or c5 == c9 == ai):
+# TODO logic
+    # for i in range(10):
+        # if playdeck[i] == 0 and (c2 == c3 == ai or c4 == c7 == ai or c5 == c9 == ai):
     #     return 1
     # elif c2 == '_' and (c1 == c3 == player or c5 == c8 == player):
     #     return 2
