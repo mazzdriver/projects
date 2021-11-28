@@ -7,31 +7,24 @@ ai = 'o'
 playdeck = [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 
-# защита от дурака, проверка годности ввода
-
-def is_move_legal(player_cell):
-    """Проверяет доступность хода
-    """
-    if str(player_cell).isdigit() and 1 <= int(player_cell) <= 9 and playdeck[int(player_cell)] == 0:
-        return int(player_cell)
 
 def get_user_move(): 
     """Возвращает номер клетки с ходом игрока. Или продолжает запрашивать ход
     """
-    pass
-    # while True:
-    #     print(
-    #     'Enter the number of cell to make the move:',
-    #     '1 2 3',
-    #     '4 5 6',
-    #     '7 8 9',
-    #     sep='\n'
-    # )
-    #     inputed = input()
-    #     if str(inputed).isdigit() and 1 <= int(inputed) <= 9 and playdeck[inputed] == 0:
-    #         return int(inputed)
-    #     print('Wrong. Please try again.')
-    #     print()
+    
+    while True:
+        print(
+        'Enter the number of cell to make the move:',
+        '1 2 3',
+        '4 5 6',
+        '7 8 9',
+        sep='\n'
+    )
+        player_cell = input()
+        if str(player_cell).isdigit() and 1 <= int(player_cell) <= 9 and playdeck[int(player_cell)] == 0:
+            return int(player_cell)
+        print('Wrong. Please try again.')
+        print()
 
 def ai_move():
     """ Возвращает ход компьютера, исходя из ситуации
@@ -105,7 +98,16 @@ def final():
 #         return ai
 
 
-
+def game():
+    pass
+    
+    # - приветствие
+    # - запрос хода
+    # - проверка хода
+    # - изменение поля
+    # - ход компьютера
+    # - изменение поля
+    # - запрос хода
 
 
 
