@@ -4,16 +4,19 @@ import random
 
 player = 'x'
 ai = 'o'
+playdeck = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
 
 # защита от дурака, проверка годности ввода
 
-def is_move_legal():
+def is_move_legal(player_cell):
     """Проверяет доступность хода
     """
-    pass
+    if str(player_cell).isdigit() and 1 <= int(player_cell) <= 9 and playdeck[int(player_cell)] == 0:
+        return int(player_cell)
 
 def get_user_move(): 
-    """Возвращает значение хода
+    """Возвращает номер клетки с ходом игрока. Или продолжает запрашивать ход
     """
     pass
     # while True:
@@ -29,30 +32,6 @@ def get_user_move():
     #         return int(inputed)
     #     print('Wrong. Please try again.')
     #     print()
-
-
-def is_win():
-    """Анализирует возможность ходить далее. Возвращает символ победителя. 
-    """
-    pass
-    # if c1 == c2 == c3 or c1 == c4 == c7 or c1 == c5 == c9:
-    #     return c1
-    # elif c4 == c5 == c6 or c2 == c5 == c8 or c3 == c5 == c7:
-    #     return c5
-    # elif c7 == c8 == c9 or c3 == c6 == c9:
-    #     return c9
-
-
-def final():
-    """
-    """
-    pass
-# (c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai):
-#     if is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == player:
-#         return player
-#     elif is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == ai:
-#         return ai
-
 
 def ai_move():
     """ Возвращает ход компьютера, исходя из ситуации
@@ -98,11 +77,36 @@ def ai_move():
     # elif c9 != ai and (c7 == c8 == player or c1 == c5 == player or c3 == c6 == player):
     #     return 9
     # else:
-    #     s = random.randint(1, 9)
+    #     s = random.randint(1, 9)      
     #     return s
 
 
-playdeck = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+def is_win():
+    """Анализирует возможность ходить далее. Возвращает символ победителя. 
+    """
+    pass
+    # if c1 == c2 == c3 or c1 == c4 == c7 or c1 == c5 == c9:
+    #     return c1
+    # elif c4 == c5 == c6 or c2 == c5 == c8 or c3 == c5 == c7:
+    #     return c5
+    # elif c7 == c8 == c9 or c3 == c6 == c9:
+    #     return c9
+
+
+def final():
+    """
+    """
+    pass
+# (c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai):
+#     if is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == player:
+#         return player
+#     elif is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == ai:
+#         return ai
+
+
+
+
 
 
 # while not end_of_game and 0 in playdeck:
