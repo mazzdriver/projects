@@ -5,8 +5,11 @@ import random
 player = 'x'
 ai = 'o'
 playdeck = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-
+hello = """Hello there! \n
+            Let's play a tic-tac-toe game! \n
+            The order is to make 3 symbols in a row or diagonal and interfere your opponent to do the same. \n
+            Move by move you'll fill a table 3*3 by symbols, usually 'x' and 'o'. You can write a symbol only in free cell. \n
+            So, let's start!"""
 
 def get_user_move(): 
     """Возвращает номер клетки с ходом игрока. Или продолжает запрашивать ход
