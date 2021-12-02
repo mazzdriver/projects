@@ -4,8 +4,7 @@ import random
 
 player = 'x'
 ai = 'o'
-playdeck = [0, 0, 0, 0, 0, 0, 0, 0, 0]
-possible_moves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
 hello = "Hello there! \n Let's play a tic-tac-toe game! \n The order is to make 3 symbols in a row or diagonal and interfere your opponent to do the same. \n Move by move you'll fill a table 3*3 by symbols, usually 'x' and 'o'. You can write a symbol only in free cell. \n So, let's start!"
 
 def get_user_move(): 
@@ -21,10 +20,11 @@ def get_user_move():
         sep='\n'
     )
         player_cell = input()
-        if str(player_cell).isdigit() and int(player_cell) in possible_moves:
+        if str(player_cell).isdigit() and int(player_cell) in range(10) and playdeck[int(player_cell) - 1] == 0:
             return int(player_cell)
         print('Wrong. Please try again.')
         print()
+
 
 def ai_move():
     """ Возвращает номер клетки с ходом компьютера, исходя из ситуации
@@ -75,41 +75,53 @@ def ai_move():
 
 
 
-def is_win():
-    """Анализирует возможность ходить далее. Возвращает символ победителя. 
+def winner(deck):
+    """Возвращает символ победителя. 
     """
-    pass
-    # if c1 == c2 == c3 or c1 == c4 == c7 or c1 == c5 == c9:
-    #     return c1
-    # elif c4 == c5 == c6 or c2 == c5 == c8 or c3 == c5 == c7:
-    #     return c5
-    # elif c7 == c8 == c9 or c3 == c6 == c9:
-    #     return c9
+    for i in range(1, 8, 3):
+        if deck[i] == deck[i+1] == deck[i+2] and deck[i] != 0:
+            return deck[i]
+    for j in range(1, 4, 3):
+        if deck[j] == deck[j+3] == deck[j+6] and deck[j] != 0:
+            return deck[j]
+    if deck[1] == deck[5] == deck[9] or deck[3] == deck[5] == deck[7]:
+        return deck[5]
 
 
-def final():
+def is_end(deck):
+    """Анализирует доску и возвращает True, если игра закончена. Иначе False 
     """
-    """
-    pass
-# (c1, c2, c3, c4, c5, c6, c7, c8, c9, player, ai):
-#     if is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == player:
-#         return player
-#     elif is_end(c1, c2, c3, c4, c5, c6, c7, c8, c9) == ai:
-#         return ai
+    if 0 not in deck:
+        return True
+    for i in range(1, 8, 3):
+        if deck[i] == deck[i+1] == deck[i+2] and deck[i] != 0:
+            return True
+    for j in range(1, 4, 3):
+        if deck[j] == deck[j+3] == deck[j+6] and deck[j] != 0:
+            return True
+    if deck[1] == deck[5] == deck[9] or deck[3] == deck[5] == deck[7]:
+        return True
+    return False
+
+
 
 
 def game():
     pass
+    print(hello)
+    while True:
+        playdeck = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        user_move = get_user_move()
+        is_end(playdeck)
+        ai_move()
+        is_end(playdeck)
+    winner(playdeck)
+    # print who wins
+    # ask try again
+
+# TODO algorhytm
     
-    # - приветствие
-    # - запрос хода
-    # - проверка хода
-    # - изменение поля
-    # - ход компьютера
-    # - изменение поля
-    # - запрос хода
-
-
+   
 
 # while not end_of_game and 0 in playdeck:
 #     # showdown
