@@ -21,7 +21,7 @@ def get_user_move(moves):
         print('Wrong. Please try again.')
         print()
 
-def get_ai_move(deck):
+def get_ai_move(deck, legal_moves):
     """ Возвращает номер клетки с ходом компьютера, исходя из ситуации
     """
     ongoing = []
@@ -57,6 +57,8 @@ def get_ai_move(deck):
         out = choice(ongoing) 
         if out in legal_moves:
             return out
+        else:
+            return choice(legal_moves)
     
 
 def winner(deck):
@@ -82,7 +84,7 @@ def is_end(deck):
     for j in range(0, 4):
         if deck[j] != 0 and deck[j] == deck[j+3] == deck[j+6]:
             return True
-    if deck[0] == deck[4] == deck[8] or deck[2] == deck[4] == deck[6]:
+    if deck[4] != 0 and (deck[0] == deck[4] == deck[8] or deck[2] == deck[4] == deck[6]):
         return True
     return False
 
@@ -92,29 +94,26 @@ def game():
     legal_moves = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     
     while True:
-        print(playdeck)
+        print(*playdeck[:3], '\n',
+              *playdeck[3:6], '\n',
+              *playdeck[6:], '\n'
+              )
         user_move = get_user_move(legal_moves) - 1
         playdeck[user_move] = player
         legal_moves.remove(user_move+1)
         if is_end(playdeck):
             break
-        ai_move = get_ai_move(playdeck) - 1
+        ai_move = get_ai_move(playdeck, legal_moves) - 1
         playdeck[ai_move] = ai
         legal_moves.remove(ai_move+1)
         if is_end(playdeck):
             break
     print('And who plays', winner(playdeck), ' won')
-    # print who wins
     # ask try again
 game()
 
 # TODO algorhytm
     
-   
-
-# while not end_of_game and 0 in playdeck:
-#     # showdown
-#     print(playdeck[0], playdeck[1], playdeck[2])
-#     print(playdeck[3], playdeck[4], playdeck[5])
-#     print(playdeck[6], playdeck[7], playdeck[8])
-
+# F*ck this. I've found a better realization on Github
+# https://github.com/g0t0wasd/python/blob/365c29414e3443a4d5454985d59bd7acf87601e1/games/terminal_games/xos.py
+# so I see no need in this project anymore
