@@ -17,6 +17,7 @@ Telegram-bot that salutes you at morning with a bundle of important info
 + парсинг новостей
 + + отбор важных новостей
 + ссылка на ютуб на последнее видео
+
 + сторонние скиллы
 + + github
 + + Markdown
